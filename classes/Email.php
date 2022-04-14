@@ -37,7 +37,7 @@ class Email
         // Insertar abajo el dominio al hacer deployment
         $contenido = '<html>';
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has Creado Tu Cuenta en UpTask, solo debes confirmarla en el siguiente enlace</p>";
-        $contenido .= "<p>Presiona aquí: <a href='http://" . $_SERVER["HTTP_HOST"] . "/confirmar??token=" .
+        $contenido .= "<p>Presiona aquí: <a href='http://" . $_SERVER["HTTP_HOST"] . "/confirmar?token=" .
             $this->token . "'>Confirmar Cuenta</a></p>";
         $contenido .= "<p>Si tu no creaste esta cuenta, puedes ignorar este mensaje</p>";
         $contenido .= '</html>';
@@ -76,7 +76,7 @@ class Email
         // Insertar abajo el dominio al hacer deployment
         $contenido = '<html>';
         $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Parece que has olvidado tu password, sigue el siguiente enlace para reestablecerlo  </p>";
-        $contenido .= "<p>Presiona aquí: <a href='http://" . $_SERVER["HTTP_HOST"] . "/reestablecer??token=" .$this->token . "'>Reestablecer Password</a></p>";
+        $contenido .= "<p>Presiona aquí: <a href='http://" . $_SERVER["HTTP_HOST"] . "/reestablecer?token=" .$this->token . "'>Reestablecer Password</a></p>";
         $contenido .= "<p>Si tu no lo solicitaste, puedes ignorar este mensaje</p>";
         $contenido .= '</html>';
 
