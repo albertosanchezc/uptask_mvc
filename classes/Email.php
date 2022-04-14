@@ -53,7 +53,7 @@ class Email
         $mail->smtpClose();
     }
 
-    //gjpvntcttvljlmsc
+    
 
     public function enviarInstrucciones()
     {
