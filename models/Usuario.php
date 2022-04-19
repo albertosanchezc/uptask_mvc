@@ -100,7 +100,7 @@ class Usuario extends ActiveRecord
         if (!$this->password_nuevo) {
             self::$alertas['error'][] = 'El Password Nuevo es obligatorio';
         }
-        if (strlen($this->password_nuevo < 6)) {
+        if (strlen($this->password_nuevo) < 6) {
             self::$alertas['error'][] = 'El Password Nuevo debe contener al menos 6 caracteres';
         }
         return self::$alertas;
