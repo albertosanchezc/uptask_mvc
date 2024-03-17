@@ -23,6 +23,7 @@ class DashboardController
         ]);
     }
 
+
     public static function crear_proyecto(Router $router)
     {
         session_start();
@@ -56,6 +57,28 @@ class DashboardController
             'titulo' => 'Crear Proyecto'
         ]);
     }
+
+    public static function eliminar(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            session_start();
+            isAuth();
+            //Validar id
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+        
+            //Si hay un id
+            if ($id) {
+        
+            $proyecto = Proyecto::find($id);
+            
+            if($proyecto){
+                $proyecto->eliminar();
+            }    
+
+            header('Location: /dashboard');
+        }        
+    }
+}
 
     public static function proyecto(Router $router)
     {

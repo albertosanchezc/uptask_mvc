@@ -1,8 +1,11 @@
 <?php include_once __DIR__ . '/header-dashbord.php'; ?>
 
-<div class="contenedor-sm">
-    <div class="contenedor-nueva-tarea">
-        <button type="button" class="agregar-tarea" id="agregar-tarea">&#43;Nueva Tarea</button>
+<div class="contenedor-sm ">
+    
+    <div class="opciones-proyecto">
+        <div class="contenedor-nueva-tarea">
+                <button type="button" class="agregar-tarea" id="agregar-tarea">&#43;Nueva Tarea</button>
+        </div>
     </div>
 
     <div id="filtros" class="filtros">
