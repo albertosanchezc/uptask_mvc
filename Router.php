@@ -20,9 +20,8 @@ class Router
     public function comprobarRutas()
     {
 
-        $currentUrl = $_SERVER['REQUEST_URI'] === '' ? '/' :  $_SERVER['REQUEST_URI'] ;
-        $method = $_SERVER['REQUEST_METHOD'];
-            
+        $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
+        $method = $_SERVER['REQUEST_METHOD'];    
         //dividimos la URL actual cada vez que exista un '?' eso indica que se están pasando variables por la url
         $splitURL = explode('?', $currentUrl);
         // debuguear($splitURL);
@@ -32,7 +31,6 @@ class Router
         } else {
           $fn = $this->postRoutes[$splitURL[0]] ?? null;
         }
-
 
         if ( $fn ) {
             // Call user fn va a llamar una función cuando no sabemos cual sera
