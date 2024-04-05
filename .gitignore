@@ -1,9 +1,5 @@
-src/
-vendor/
-node_modules/
-uptask_mvc.sql
-gulpfile.js
-package.json
-package-lock.json
+node_modules
+vendor
 .DS_Store
-.env
+uptask_mvc.sql
+includes/.env
