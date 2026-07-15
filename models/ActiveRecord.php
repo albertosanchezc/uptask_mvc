@@ -49,28 +49,44 @@ class ActiveRecord {
 
     // Busca un registro por su id
     public static function find($id) {
+<<<<<<< HEAD
         $query = "SELECT * FROM " . static::$tabla  ." WHERE id = {$id}";
+=======
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = ${id}";
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Obtener Registro
     public static function get($limite) {
+<<<<<<< HEAD
         $query = "SELECT * FROM " . static::$tabla . " LIMIT {$limite}";
+=======
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite}";
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Busqueda Where con Columna 
     public static function where($columna, $valor) {
+<<<<<<< HEAD
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+=======
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Busca todos los registros que pertenecen a un ID
     public static function belongsTo($columna, $valor) {
+<<<<<<< HEAD
         $query = "SELECT * FROM " . static::$tabla . " WHERE {$columna} = '{$valor}'";
+=======
+        $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} = '${valor}'";
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
         $resultado = self::consultarSQL($query);
         return $resultado ;
     }

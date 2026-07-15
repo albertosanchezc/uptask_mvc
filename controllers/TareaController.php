@@ -8,7 +8,10 @@ use Model\Proyecto;
 class TareaController{
     public static function index(){
         $proyectoId = $_GET['id'];
+<<<<<<< HEAD
             
+=======
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
 
         if(!$proyectoId) header('Location: /dashboard');
 

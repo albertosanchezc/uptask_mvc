@@ -1,7 +1,11 @@
 <?php
 
 namespace Model;
+<<<<<<< HEAD
 #[\AllowDynamicProperties]
+=======
+
+>>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
 class Usuario extends ActiveRecord
 {
     protected static $tabla = 'usuarios';
