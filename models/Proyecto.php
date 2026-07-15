@@ -3,10 +3,7 @@
 namespace Model;
 
 use Model\ActiveRecord;
-<<<<<<< HEAD
 #[\AllowDynamicProperties]
-=======
->>>>>>> d03566c596c05e11861813608f1f71e41c484ebd
 
 class Proyecto extends ActiveRecord{
     protected static $tabla = 'proyectos';
