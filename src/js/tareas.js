@@ -193,56 +193,56 @@
     }
 
         function mostrarFormularioSubProyecto(editar = false, subproyecto = {}) {
-        console.log(subproyecto);
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
         modal.innerHTML = `
-        <form class="formulario  nueva-tarea">
-            <legend>${editar ? 'Editar Tarea' : 'Añade una nueva tarea'}</legend>
+        <form class="formulario formulario-subproyecto  nuevo-subproyecto">
+            <legend>${editar ? 'Editar Subproyecto' : 'Añade Un Subproyecto'}</legend>
             <div class="campo">
-                <label>Tarea</label>
-                <input type="text" name="tarea" placeholder="${subproyecto.nombre ? 'Edita la Tarea' : 'Añadir Tarea al Proyecto Actual'}" id="tarea" value="${tarea.nombre ? tarea.nombre : ''}"/>
+                <label>Subproyecto</label>
+                <input type="text" name="subproyecto" placeholder="${subproyecto.nombre ? 'Edita el subproyecto' : 'Añadir subproyecto al Proyecto Actual'}" id="tarea" value="${subproyecto.nombre ? subproyecto.nombre : ''}"/>
             </div>
             <div class="opciones">
-                <input type="submit" class="submit-nueva-tarea" value="${subproyecto.nombre ? 'Guardar Cambios' : 'Añadir Tarea'}" />
+                <input type="submit" class="submit-nuevo-subproyecto" value="${subproyecto.nombre ? 'Guardar Cambios' : 'Añadir Subproyecto'}" />
                 <button type="button" class="cerrar-modal">Cancelar</button>
             </div>
         </form>
         `;
+        
 
-        // setTimeout(() => {
-        //     const formulario = document.querySelector('.formulario')
-        //     formulario.classList.add('animar');
-        // }, 0);
+        setTimeout(() => {
+            const formulario = document.querySelector('.formulario-subproyecto')
+            formulario.classList.add('animar');
+        }, 0);
 
 
-        // modal.addEventListener('click', function (e) {
-        //     e.preventDefault();
+        modal.addEventListener('click', function (e) {
+            e.preventDefault();
 
-        //     if (e.target.classList.contains('cerrar-modal')) {
-        //         const formulario = document.querySelector('.formulario');
-        //         formulario.classList.add('cerrar');
-        //         setTimeout(() => {
-        //             modal.remove();
-        //         }, 500);
-        //     }
+            if (e.target.classList.contains('cerrar-modal')) {
+                const formulario = document.querySelector('.formulario');
+                formulario.classList.add('cerrar');
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+            }
 
-        //     if (e.target.classList.contains('submit-nueva-tarea')) {
-        //         const nombreTarea = document.querySelector('#tarea').value.trim();
+            if (e.target.classList.contains('submit-nueva-tarea')) {
+                const nombreTarea = document.querySelector('#tarea').value.trim();
 
-        //         if (nombreTarea === '') {
-        //             mostrarAlerta('El nombre de la tarea es Obligatorio', 'error', document.querySelector('.formulario legend'));
-        //             return;
-        //         }
-        //         if (editar) {
-        //             tarea.nombre = nombreTarea;
-        //             actualizarTarea(tarea);
-        //         } else {
-        //             agregarTarea(nombreTarea);
-        //         }
-        //     }
-        // })
-        // document.querySelector('.dashboard').appendChild(modal);
+                if (nombreTarea === '') {
+                    mostrarAlerta('El nombre de la tarea es Obligatorio', 'error', document.querySelector('.formulario legend'));
+                    return;
+                }
+                if (editar) {
+                    tarea.nombre = nombreTarea;
+                    actualizarTarea(tarea);
+                } else {
+                    agregarTarea(nombreTarea);
+                }
+            }
+        })
+        document.querySelector('.dashboard').appendChild(modal);
     }
 
 

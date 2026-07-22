@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Model\Proyecto;
+use Model\Subproyecto;
 use Model\Usuario;
 use MVC\Router;
 
@@ -96,8 +97,11 @@ class DashboardController
             header('Location: /dashboard');
         }
 
+        $proyectoId = $proyecto->id;
+        $subproyectos = Subproyecto::belongsTo('proyectoId',$proyectoId);
         $router->render('dashboard/proyecto', [
-            'titulo' => $proyecto->proyecto
+            'titulo' => $proyecto->proyecto,
+            'subproyecto' => $subproyectos
         ]);
     }
 
