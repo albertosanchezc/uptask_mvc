@@ -63,10 +63,23 @@ class TareaController
     public static function actualizar()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Validar que el proyecto exista
-            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
+
+            // Obtener el subproyecto por su URL
+            $subproyecto = Subproyecto::where('url', $_POST['proyectoId']);
+            if (!$subproyecto) {
+                echo json_encode([
+                    'tipo' => 'error',
+                    'mensaje' => 'Subproyecto no encontrado'
+                ]);
+                return;
+            }
+
+            // Obtener el proyecto padre
+            $proyecto = Proyecto::find($subproyecto->proyectoId);
 
             session_start();
+
+            // Validad propietario            
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
@@ -79,13 +92,14 @@ class TareaController
 
             $tarea = new Tarea($_POST);
             $tarea->proyectoId = $proyecto->id;
+            $tarea->subproyectoId = $subproyecto->id;
 
             $resultado = $tarea->guardar();
             if ($resultado) {
                 $respuesta = [
                     'tipo' => 'exito',
                     'id' => $tarea->id,
-                    'proyectoId' => $proyecto->id,
+                    // 'proyectoId' => $proyecto->id,
                     'mensaje' => 'Actualizado Correctamente'
                 ];
                 echo json_encode(['respuesta' => $respuesta]);

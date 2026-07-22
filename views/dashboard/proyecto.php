@@ -1,5 +1,9 @@
 <?php include_once __DIR__ . '/header-dashbord.php'; ?>
-
+    <div class="opciones-proyecto">
+        <div class="contenedor-nueva-tarea">
+                <button type="button" class="agregar-subproyecto" id="agregar-subproyecto">&#43;Nuevo Subproyecto</button>
+        </div>
+    </div>
 <?php if (count($subproyectos) === 0) { ?>
     <p class="no-proyectos">No Hay Proyectos Que Mostrar <a href="/crear-proyecto">Crear Uno</a></p>
 <?php } else { ?>
