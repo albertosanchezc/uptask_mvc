@@ -59,27 +59,28 @@ class DashboardController
         ]);
     }
 
-    public static function eliminar(){
+    public static function eliminar()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             isAuth();
             //Validar id
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
-        
+
             //Si hay un id
             if ($id) {
-        
-            $proyecto = Proyecto::find($id);
-            
-            if($proyecto){
-                $proyecto->eliminar();
-            }    
 
-            header('Location: /dashboard');
-        }        
+                $proyecto = Proyecto::find($id);
+
+                if ($proyecto) {
+                    $proyecto->eliminar();
+                }
+
+                header('Location: /dashboard');
+            }
+        }
     }
-}
 
     public static function proyecto(Router $router)
     {
@@ -98,10 +99,42 @@ class DashboardController
         }
 
         $proyectoId = $proyecto->id;
-        $subproyectos = Subproyecto::belongsTo('proyectoId',$proyectoId);
+        $subproyectos = Subproyecto::belongsTo('proyectoId', $proyectoId);
         $router->render('dashboard/proyecto', [
             'titulo' => $proyecto->proyecto,
-            'subproyecto' => $subproyectos
+            'subproyectos' => $subproyectos
+        ]);
+    }
+
+    public static function subproyecto(Router $router)
+    {
+        session_start();
+        isAuth();
+
+        $token = $_GET['id'];
+        
+        
+
+        if (!$token) {
+            header('Location: /dashboard');
+        }
+
+        $subproyecto = Subproyecto::where('url', $token);
+        
+        
+        if (!$subproyecto) {
+            header('Location: /dashboard');
+        }
+
+        $proyecto = Proyecto::find($subproyecto->proyectoId);
+
+        if ($proyecto->propietarioId !== $_SESSION['id']) {
+            header('Location: /dashboard');
+        }
+
+        $router->render('dashboard/subproyecto', [
+            'titulo' => $subproyecto->nombre,
+            'subproyecto' => $subproyecto
         ]);
     }
 

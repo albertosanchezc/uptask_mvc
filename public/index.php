@@ -36,6 +36,7 @@ $router->get('/crear-proyecto', [DashboardController::class, 'crear_proyecto']);
 $router->post('/crear-proyecto', [DashboardController::class, 'crear_proyecto']);
 $router->post('/eliminar', [DashboardController::class,'eliminar']);
 $router->get('/proyecto', [DashboardController::class, 'proyecto']);
+$router->get('/subproyecto', [DashboardController::class, 'subproyecto']);
 $router->get('/perfil', [DashboardController::class, 'perfil']);
 $router->post('/perfil', [DashboardController::class, 'perfil']);
 $router->get('/cambiar-password', [DashboardController::class, 'cambiar_password']);
