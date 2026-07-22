@@ -10,20 +10,25 @@
         mostrarFormulario();
     });
 
+    const nuevoSubproyectoBtn = document.querySelector('#agregar-subproyecto');
+    nuevoSubproyectoBtn.addEventListener('click', function () {
+        mostrarFormularioSubProyecto();
+    });
+
 
 
     // Filtros de búsqueda
     const filtros = document.querySelectorAll('#filtros input[type="radio"]');
-    filtros.forEach(radio=> {
+    filtros.forEach(radio => {
         radio.addEventListener('input', filtrarTareas);
     });
 
-    function filtrarTareas(e){
+    function filtrarTareas(e) {
         const filtro = e.target.value;
 
-        if(filtro !== ''){
+        if (filtro !== '') {
             filtradas = tareas.filter(tarea => tarea.estado === filtro);
-        }else{
+        } else {
             filtradas = [];
         }
 
@@ -38,6 +43,8 @@
             const resultado = await respuesta.json();
 
             tareas = resultado.tareas;
+            console.log(tareas);
+
             mostrarTareas();
         } catch (error) {
             console.log(error);
@@ -110,24 +117,24 @@
         });
     }
 
-    function totalPendientes(){
+    function totalPendientes() {
         const totalPendientes = tareas.filter(tarea => tarea.estado === "0");
         const pendientesRadio = document.querySelector('#pendientes');
 
-        if(totalPendientes.length === 0){
+        if (totalPendientes.length === 0) {
             pendientesRadio.disabled = true;
-        }else{
+        } else {
             pendientesRadio.disabled = false;
         }
     }
 
-    function totalCompletas(){
+    function totalCompletas() {
         const totalCompletas = tareas.filter(tarea => tarea.estado === "1");
         const completasRadio = document.querySelector('#completadas');
 
-        if(totalCompletas.length === 0){
+        if (totalCompletas.length === 0) {
             completasRadio.disabled = true;
-        }else{
+        } else {
             completasRadio.disabled = false;
         }
     }
@@ -183,6 +190,59 @@
             }
         })
         document.querySelector('.dashboard').appendChild(modal);
+    }
+
+        function mostrarFormularioSubProyecto(editar = false, subproyecto = {}) {
+        console.log(subproyecto);
+        const modal = document.createElement('DIV');
+        modal.classList.add('modal');
+        modal.innerHTML = `
+        <form class="formulario  nueva-tarea">
+            <legend>${editar ? 'Editar Tarea' : 'Añade una nueva tarea'}</legend>
+            <div class="campo">
+                <label>Tarea</label>
+                <input type="text" name="tarea" placeholder="${subproyecto.nombre ? 'Edita la Tarea' : 'Añadir Tarea al Proyecto Actual'}" id="tarea" value="${tarea.nombre ? tarea.nombre : ''}"/>
+            </div>
+            <div class="opciones">
+                <input type="submit" class="submit-nueva-tarea" value="${subproyecto.nombre ? 'Guardar Cambios' : 'Añadir Tarea'}" />
+                <button type="button" class="cerrar-modal">Cancelar</button>
+            </div>
+        </form>
+        `;
+
+        // setTimeout(() => {
+        //     const formulario = document.querySelector('.formulario')
+        //     formulario.classList.add('animar');
+        // }, 0);
+
+
+        // modal.addEventListener('click', function (e) {
+        //     e.preventDefault();
+
+        //     if (e.target.classList.contains('cerrar-modal')) {
+        //         const formulario = document.querySelector('.formulario');
+        //         formulario.classList.add('cerrar');
+        //         setTimeout(() => {
+        //             modal.remove();
+        //         }, 500);
+        //     }
+
+        //     if (e.target.classList.contains('submit-nueva-tarea')) {
+        //         const nombreTarea = document.querySelector('#tarea').value.trim();
+
+        //         if (nombreTarea === '') {
+        //             mostrarAlerta('El nombre de la tarea es Obligatorio', 'error', document.querySelector('.formulario legend'));
+        //             return;
+        //         }
+        //         if (editar) {
+        //             tarea.nombre = nombreTarea;
+        //             actualizarTarea(tarea);
+        //         } else {
+        //             agregarTarea(nombreTarea);
+        //         }
+        //     }
+        // })
+        // document.querySelector('.dashboard').appendChild(modal);
     }
 
 
@@ -264,7 +324,7 @@
         datos.append('id', id);
         datos.append('nombre', nombre);
         datos.append('estado', estado);
-        datos.append('proyectoId', obtenerProyecto());        
+        datos.append('proyectoId', obtenerProyecto());
 
         try {
             const url = `${server}/api/tarea/actualizar`;
@@ -305,7 +365,7 @@
         }
     }
 
-    
+
     function confirmarEliminarTarea(tarea) {
         Swal.fire({
             title: '¿Eliminar Tarea?',
