@@ -390,9 +390,9 @@
 
         const datos = new FormData();
         datos.append('id', id);
-        datos.append('nombre', nombre);
-        datos.append('estado', estado);
-        datos.append('subproyectoUrl', obtenerSubproyecto());
+        // datos.append('nombre', nombre);
+        // datos.append('estado', estado);
+        // datos.append('subproyectoUrl', obtenerSubproyecto());
 
         try {
             const url = `${server}/api/tarea/eliminar`;
@@ -404,7 +404,7 @@
             const resultado = await respuesta.json();
             if (resultado.resultado) {
                 //mostrarAlerta(resultado.mensaje, resultado.tipo, document.querySelector('.contenedor-nueva-tarea'));
-                swal.fire('Eliminado!', resultado.mensaje, 'success');
+                Swal.fire('Eliminado!', resultado.mensaje, 'success');
 
                 tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== tarea.id);
                 mostrarTareas();

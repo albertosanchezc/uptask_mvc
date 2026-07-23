@@ -163,8 +163,11 @@ class TareaController
                     'mensaje' => 'Subproyecto no encontrado'
                 ];
                 echo json_encode($respuesta);
+                return;
             }
             session_start();
+
+            $proyecto = Proyecto::where('subproyecto',$subproyecto->proyectoId);
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
