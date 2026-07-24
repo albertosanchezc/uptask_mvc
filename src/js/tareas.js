@@ -339,10 +339,10 @@
 
             console.log(resultado);
 
-            if (resultado.respuesta.tipo === 'exito') {
+            if (resultado.tipo === 'exito') {
                 Swal.fire(
-                    resultado.respuesta.mensaje,
-                    resultado.respuesta.mensaje,
+                    resultado.mensaje,
+                    resultado.mensaje,
                     'success'
                 );
 
