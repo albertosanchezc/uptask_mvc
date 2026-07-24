@@ -37,7 +37,7 @@
 
     async function obtenerTareas() {
         try {
-            const id = obtenerSubproyecto();
+            const id = obtenerProyecto();
             const url = `/api/tareas?id=${id}`;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
@@ -272,7 +272,7 @@
         // Construir la petición
         const datos = new FormData();
         datos.append('nombre', tarea);
-        datos.append('subproyectoUrl', obtenerSubproyecto());
+        datos.append('proyectoId', obtenerProyecto());
 
         try {
             const url = `${server}/api/tarea`;
@@ -296,8 +296,7 @@
                     id: String(resultado.id),
                     nombre: tarea,
                     estado: "0",
-                    proyectoId: resultado.proyectoId,
-                    subproyectoId: resultado.subproyectoId
+                    proyectoId: resultado.proyectoId
                 }
 
                 tareas = [...tareas, tareaObj];
@@ -319,13 +318,13 @@
 
     async function actualizarTarea(tarea) {
 
-        const { estado, id, nombre } = tarea;
+        const { estado, id, nombre, proyectoId } = tarea;
 
         const datos = new FormData();
         datos.append('id', id);
         datos.append('nombre', nombre);
         datos.append('estado', estado);
-        datos.append('subproyectoUrl', obtenerSubproyecto());
+        datos.append('proyectoId', obtenerProyecto());
 
         try {
             const url = `${server}/api/tarea/actualizar`;
@@ -339,10 +338,10 @@
 
             console.log(resultado);
 
-            if (resultado.tipo === 'exito') {
+            if (resultado.respuesta.tipo === 'exito') {
                 Swal.fire(
-                    resultado.mensaje,
-                    resultado.mensaje,
+                    resultado.respuesta.mensaje,
+                    resultado.respuesta.mensaje,
                     'success'
                 );
 
@@ -390,9 +389,9 @@
 
         const datos = new FormData();
         datos.append('id', id);
-        // datos.append('nombre', nombre);
-        // datos.append('estado', estado);
-        // datos.append('subproyectoUrl', obtenerSubproyecto());
+        datos.append('nombre', nombre);
+        datos.append('estado', estado);
+        datos.append('proyectoId', obtenerProyecto());
 
         try {
             const url = `${server}/api/tarea/eliminar`;
@@ -404,7 +403,7 @@
             const resultado = await respuesta.json();
             if (resultado.resultado) {
                 //mostrarAlerta(resultado.mensaje, resultado.tipo, document.querySelector('.contenedor-nueva-tarea'));
-                Swal.fire('Eliminado!', resultado.mensaje, 'success');
+                swal.fire('Eliminado!', resultado.mensaje, 'success');
 
                 tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== tarea.id);
                 mostrarTareas();
@@ -415,7 +414,7 @@
         }
     }
 
-    function obtenerSubproyecto() {
+    function obtenerProyecto() {
         const proyectoParams = new URLSearchParams(window.location.search);
         const proyecto = Object.fromEntries(proyectoParams.entries());
         return proyecto.id;

@@ -1,6 +1,6 @@
 <?php include_once __DIR__ . '/header-dashbord.php'; ?>
     <div class="opciones-proyecto">
-        <div class="contenedor-nueva-tarea">
+        <div class="contenedor-nuevo-subproyecto">
                 <button type="button" class="agregar-subproyecto" id="agregar-subproyecto">&#43;Nuevo Subproyecto</button>
         </div>
     </div>
@@ -26,7 +26,9 @@
     </ul>
 <?php }  ?>
 
-
-
-
 <?php include_once __DIR__ . '/footer-dashboard.php'; ?>
+<?php
+$script .= '
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="build/js/subproyectos.js"></script>
+'; ?>

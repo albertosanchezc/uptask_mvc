@@ -19,7 +19,7 @@ class Subproyecto extends ActiveRecord
         $this->proyectoId = $args['proyectoId'] ?? null;
     }
 
-    public function validarProyecto()
+    public function validarSubproyecto()
     {
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El nombre del subproyecto es obligatorio';

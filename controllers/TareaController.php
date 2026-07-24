@@ -33,72 +33,30 @@ class TareaController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             session_start();
-            // Obtener el subproyecto
-            $subproyecto = Subproyecto::where('url', $_POST['subproyectoUrl']);
 
-            if (!$subproyecto) {
-                $respuesta = [
-                    'tipo' => 'error',
-                    'mensaje' => 'Subproyecto no encontrado'
-                ];
-                echo json_encode($respuesta);
-                return;
-            }
+            $proyectoId = $_POST['proyectoId'];
 
-            // Obtener el proyecto padre
-            $proyecto = Proyecto::find($subproyecto->proyectoId);
+            $proyecto = Proyecto::where('url', $proyectoId);
 
-            // Validar propietario
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
-
                 $respuesta = [
                     'tipo' => 'error',
-                    'mensaje' => 'Hubo un error al agregar la tarea'
+                    'mensaje' => 'Hubo un Error al agregar la tarea'
                 ];
                 echo json_encode($respuesta);
                 return;
             }
-
-            // Crear tarea
+            // Todo bien, instanciar y crear la tarea
             $tarea = new Tarea($_POST);
             $tarea->proyectoId = $proyecto->id;
-            $tarea->subproyectoId = $subproyecto->id;
-
             $resultado = $tarea->guardar();
             $respuesta = [
                 'tipo' => 'exito',
                 'id' => $resultado['id'],
                 'mensaje' => 'Tarea Creada Correctamente',
-                'proyectoId' => $proyecto->id,
-                'subproyectoId' => $subproyecto->id
+                'proyectoId' => $proyecto->id
             ];
             echo json_encode($respuesta);
-
-            // //////////////////////////////
-
-            // $proyectoId = $_POST['proyectoId'];
-
-            // $proyecto = Proyecto::where('url', $proyectoId);
-
-            // if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
-            //     $respuesta = [
-            //         'tipo' => 'error',
-            //         'mensaje' => 'Hubo un Error al agregar la tarea'
-            //     ];
-            //     echo json_encode($respuesta);
-            //     return;
-            // }
-            // // Todo bien, instanciar y crear la tarea
-            // $tarea = new Tarea($_POST);
-            // $tarea->proyectoId = $proyecto->id;
-            // $resultado = $tarea->guardar();
-            // $respuesta = [
-            //     'tipo' => 'exito',
-            //     'id' => $resultado['id'],
-            //     'mensaje' => 'Tarea Creada Correctamente',
-            //     'proyectoId' => $proyecto->id
-            // ];
-            // echo json_encode($respuesta);
         }
     }
 
@@ -107,13 +65,12 @@ class TareaController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Obtener el subproyecto por su URL
-            $subproyecto = Subproyecto::where('url', $_POST['subproyectoUrl']);
+            $subproyecto = Subproyecto::where('url', $_POST['proyectoId']);
             if (!$subproyecto) {
-                $respuesta = [
+                echo json_encode([
                     'tipo' => 'error',
                     'mensaje' => 'Subproyecto no encontrado'
-                ];
-                echo json_encode($respuesta);
+                ]);
                 return;
             }
 
@@ -122,8 +79,7 @@ class TareaController
 
             session_start();
 
-
-            // Validar propietario            
+            // Validad propietario            
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
@@ -146,7 +102,7 @@ class TareaController
                     // 'proyectoId' => $proyecto->id,
                     'mensaje' => 'Actualizado Correctamente'
                 ];
-                echo json_encode($respuesta);
+                echo json_encode(['respuesta' => $respuesta]);
             }
         }
     }
@@ -155,30 +111,9 @@ class TareaController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validar que el proyecto exista
-            $tarea = Tarea::find($_POST['id']);
+            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
 
-            if (!$tarea) {
-                $respuesta = [
-                    'tipo' => 'error',
-                    'mensaje' => 'Subproyecto no encontrado'
-                ];
-                echo json_encode($respuesta);
-                return;
-            }
-
-            $subproyecto = Subproyecto::find($tarea->subproyectoId);
-
-            if (!$subproyecto) {
-                $respuesta = [
-                    'tipo' => 'error',
-                    'mensaje' => 'Subproyecto no encontrado'
-                ];
-                echo json_encode($respuesta);
-                return;
-            }
             session_start();
-
-            $proyecto = Proyecto::find($subproyecto->proyectoId);
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [

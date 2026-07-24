@@ -5,7 +5,6 @@
     <div class="opciones-proyecto">
         <div class="contenedor-nueva-tarea">
                 <button type="button" class="agregar-tarea" id="agregar-tarea">&#43;Nueva Tarea</button>
-                <button type="button" class="agregar-subproyecto" id="agregar-subproyecto">&#43;Nuevo Subproyecto</button>
         </div>
     </div>
 

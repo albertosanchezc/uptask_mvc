@@ -5,6 +5,7 @@ require_once __DIR__ . '/../includes/app.php';
 use MVC\Router;
 use Controllers\LoginController;
 use Controllers\DashboardController;
+use Controllers\SubproyectoController;
 use Controllers\TareaController;
 
 $router = new Router();
@@ -36,7 +37,15 @@ $router->get('/crear-proyecto', [DashboardController::class, 'crear_proyecto']);
 $router->post('/crear-proyecto', [DashboardController::class, 'crear_proyecto']);
 $router->post('/eliminar', [DashboardController::class,'eliminar']);
 $router->get('/proyecto', [DashboardController::class, 'proyecto']);
+
+
+
+
 $router->get('/subproyecto', [DashboardController::class, 'subproyecto']);
+$router->post('/api/subproyecto',[SubproyectoController::class, 'crear']);
+
+
+
 $router->get('/perfil', [DashboardController::class, 'perfil']);
 $router->post('/perfil', [DashboardController::class, 'perfil']);
 $router->get('/cambiar-password', [DashboardController::class, 'cambiar_password']);
