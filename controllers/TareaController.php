@@ -33,10 +33,19 @@ class TareaController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             session_start();
+            $subproyecto = Subproyecto::where('url', $_POST['subproyectoUrl']);
 
-            $proyectoId = $_POST['proyectoId'];
+            if (!$subproyecto) {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'mensaje' => 'Hubo un Error al agregar la tarea'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
 
-            $proyecto = Proyecto::where('url', $proyectoId);
+
+            $proyecto = Proyecto::find($subproyecto->proyectoId);
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
@@ -48,7 +57,10 @@ class TareaController
             }
             // Todo bien, instanciar y crear la tarea
             $tarea = new Tarea($_POST);
+
             $tarea->proyectoId = $proyecto->id;
+            $tarea->subproyectoId = $subproyecto->id;
+
             $resultado = $tarea->guardar();
             $respuesta = [
                 'tipo' => 'exito',

@@ -10,11 +10,6 @@
         mostrarFormulario();
     });
 
-    const nuevoSubproyectoBtn = document.querySelector('#agregar-subproyecto');
-    nuevoSubproyectoBtn.addEventListener('click', function () {
-        mostrarFormularioSubProyecto();
-    });
-
 
 
     // Filtros de búsqueda
@@ -37,7 +32,7 @@
 
     async function obtenerTareas() {
         try {
-            const id = obtenerProyecto();
+            const id = obtenerSubproyecto();
             const url = `/api/tareas?id=${id}`;
             const respuesta = await fetch(url);
             const resultado = await respuesta.json();
@@ -192,7 +187,7 @@
         document.querySelector('.dashboard').appendChild(modal);
     }
 
-        function mostrarFormularioSubProyecto(editar = false, subproyecto = {}) {
+    function mostrarFormularioSubProyecto(editar = false, subproyecto = {}) {
         const modal = document.createElement('DIV');
         modal.classList.add('modal');
         modal.innerHTML = `
@@ -208,7 +203,7 @@
             </div>
         </form>
         `;
-        
+
 
         setTimeout(() => {
             const formulario = document.querySelector('.formulario-subproyecto')
@@ -272,7 +267,7 @@
         // Construir la petición
         const datos = new FormData();
         datos.append('nombre', tarea);
-        datos.append('proyectoId', obtenerProyecto());
+        datos.append('subproyectoUrl', obtenerSubproyecto());
 
         try {
             const url = `${server}/api/tarea`;
@@ -296,7 +291,7 @@
                     id: String(resultado.id),
                     nombre: tarea,
                     estado: "0",
-                    proyectoId: resultado.proyectoId
+                    subproyectoId: resultado.subproyectoId
                 }
 
                 tareas = [...tareas, tareaObj];
@@ -324,7 +319,7 @@
         datos.append('id', id);
         datos.append('nombre', nombre);
         datos.append('estado', estado);
-        datos.append('proyectoId', obtenerProyecto());
+        datos.append('proyectoId', obtenerSubproyecto());
 
         try {
             const url = `${server}/api/tarea/actualizar`;
@@ -391,7 +386,7 @@
         datos.append('id', id);
         datos.append('nombre', nombre);
         datos.append('estado', estado);
-        datos.append('proyectoId', obtenerProyecto());
+        datos.append('proyectoId', obtenerSubproyecto());
 
         try {
             const url = `${server}/api/tarea/eliminar`;
@@ -414,7 +409,7 @@
         }
     }
 
-    function obtenerProyecto() {
+    function obtenerSubproyecto() {
         const proyectoParams = new URLSearchParams(window.location.search);
         const proyecto = Object.fromEntries(proyectoParams.entries());
         return proyecto.id;
