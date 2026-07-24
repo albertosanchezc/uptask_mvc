@@ -155,7 +155,18 @@ class TareaController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Validar que el proyecto exista
-            $subproyecto = Subproyecto::where('url', $_POST['subproyectoUrl']);
+            $tarea = Tarea::find($_POST['id']);
+
+            if (!$tarea) {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'mensaje' => 'Subproyecto no encontrado'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+
+            $subproyecto = Subproyecto::find($tarea->subproyectoId);
 
             if (!$subproyecto) {
                 $respuesta = [
@@ -167,7 +178,7 @@ class TareaController
             }
             session_start();
 
-            $proyecto = Proyecto::where('subproyecto',$subproyecto->proyectoId);
+            $proyecto = Proyecto::find($subproyecto->proyectoId);
 
             if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) {
                 $respuesta = [
